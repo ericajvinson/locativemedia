@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--This is how you comment for html-->
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+    <title> My Map </title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+    /*this CSS section is where you style your page*/
+    /*this is how you comment in CSS*/
+      body { margin: 0; padding: 0; }
+      #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+      </style>
+  </head>
+  <body>
+    <div id='map' ></div>
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZXJpY2F2aW5zb24iLCJhIjoiY2tnZnRncnEwMW82cTJ5cXVtanB3MXFkayJ9.OQruwhFdudL1jBRjRWkbqw';
+
+    //Call in your Map
+    var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/ericavinson/ckgfr6r3n33re19nyqnqova6b'
+    });
+    // Initialize the geolocate control.
+  var geolocate = new mapboxgl.GeolocateControl({
+        positionOptions: {
+        enableHighAccuracy: true
+          },
+        trackUserLocation: true
+        });
+
+  // Add the control to the map.
+    map.addControl(geolocate);
+    map.on('load', function() {
+    geolocate.trigger();
+    map.addSource('places', {
+              'type': 'geojson',
+              'data': {
+      'type': 'FeatureCollection',
+      'features': [
+        {
+          'type': 'Feature',
+          'properties': {
+            'title': 'Tree Branch',
+            'description': 'Low hanging tree planted in median — branches below head height'
+          },
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [
+              -122.2854,
+              37.855135
+            ]
+          }
+        },
+        {
+          'type': 'Feature',
+          'properties': {
+            'title': 'Tree Cover',
+            'description': 'Trees planted either side of the sidewalk created complete canopy for about 3 yards'
+          },
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [
+              -122.28554,
+              37.854754
+            ]
+          }
+        },
+        {
+          'type': 'Feature',
+          'properties': {
+            'title': 'Leaning Tree',
+            'description': 'Series of tall trees leading to tree leaning into sidewalk // lowest leaves about head height some ducking required'
+          },
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [
+              -122.28655,
+              37.853787
+            ]
+          }
+        },
+        {
+          'type': 'Feature',
+          'properties': {
+            'title': 'Bushes',
+            'description': 'No trees but lots of overgrown bushes which require some weaving around to get through — one particularly spiky bush protruding into sidewalk (would be difficult for a stroller'
+          },
+          'geometry': {
+            'type': 'Point',
+            'coordinates': [
+              -122.28641,
+              37.855035
+            ]
+          }
+        }
+      ]
+              }
+          });
+          // Add a layer showing the places.
+      map.addLayer({
+          'id': 'places',
+          'type': 'symbol',
+          'source': 'places',
+          'layout': {
+              'icon-image': 'windmill-15',
+              'icon-allow-overlap': true
+          }
+      });
+      });
+    </script>
+  </body>
+</html>
